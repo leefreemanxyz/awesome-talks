@@ -5,12 +5,20 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 
-import { WATCHED_KEY, FAV_KEY, MODE_KEY, getStorage, setStorage } from './state'
+import {
+    WATCHED_KEY,
+    FAV_KEY,
+    SAVED_KEY,
+    MODE_KEY,
+    getStorage,
+    setStorage
+} from './state'
 
 const defaultState = {
     mode: getStorage(MODE_KEY, 'LIGHT'),
     favorites: getStorage(FAV_KEY, []),
     watched: getStorage(WATCHED_KEY, []),
+    saved: getStorage(SAVED_KEY, []),
     hideViewed: false,
     search: '',
     searchSpeakers: '',
@@ -66,6 +74,39 @@ const stateLink = withClientState({
                 }
 
                 setStorage(FAV_KEY, data.favorites)
+
+                cache.writeQuery({ query, data })
+            },
+            addSaved: (_, { id }, { cache }) => {
+                const query = gql`
+                    query GetSaved {
+                        saved @client
+                    }
+                `
+
+                const previous = cache.readQuery({ query })
+                const data = {
+                    saved: [...previous.saved, id]
+                }
+                console.log(data.saved)
+                setStorage(SAVED_KEY, data.saved)
+
+                cache.writeQuery({ query, data })
+            },
+            removeSaved: (_, { id }, { cache }) => {
+                const query = gql`
+                    query GetSaved {
+                        saved @client
+                    }
+                `
+
+                const previous = cache.readQuery({ query })
+                const data = {
+                    saved: previous.saved.filter(a => a !== id)
+                }
+                console.log(data.saved)
+
+                setStorage(SAVED_KEY, data.saved)
 
                 cache.writeQuery({ query, data })
             },

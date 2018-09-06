@@ -10,6 +10,7 @@ import AddTalk from './AddTalk'
 import Container from './Container'
 import ToggleMode from './ToggleMode'
 import GET_FAVORITES from '../Queries/Local/GET_FAVORITES'
+import GET_SAVED from '../Queries/Local/GET_SAVED'
 
 import linkParser from '../Utils/link-parser'
 
@@ -164,6 +165,17 @@ export default class Navigation extends Component {
                                     <Item>
                                         <Link to="/favorites">
                                             <span>Favorites</span>
+                                        </Link>
+                                    </Item>
+                                ) : null
+                            }
+                        </Query>
+                        <Query query={GET_SAVED}>
+                            {({ data: { saved } }) =>
+                                saved.length ? (
+                                    <Item>
+                                        <Link to="/saved">
+                                            <span>Saved</span>
                                         </Link>
                                     </Item>
                                 ) : null

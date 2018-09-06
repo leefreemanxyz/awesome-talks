@@ -16,11 +16,19 @@ export default styled.div`
 
     ${is('watched')`
       top: ${remcalc(50)};
-  `};
+    `};
 
     ${is('watched', 'big')`
       top: ${remcalc(100)};
-  `};
+    `};
+
+    ${is('saved')`
+        top: ${remcalc(100)};
+    `};
+
+    ${is('saved', 'big')`
+        top: ${remcalc(200)};
+    `};
 
     input[type='checkbox'] {
         clear: both;
@@ -70,7 +78,10 @@ export default styled.div`
         transform: scale(1.3);
         background: none;
     }
-
+    input[type='checkbox']:checked + label svg.saved {
+        fill: ${props => props.theme.lightBlue};
+        background: none;
+    }
     input[type='checkbox']:checked + label svg g {
         fill: ${props => props.theme.green};
         background: none;

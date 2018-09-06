@@ -7,6 +7,7 @@ import Speaker from './Pages/Speaker'
 import Tags from './Pages/Tags'
 import Tag from './Pages/Tag'
 import Favorites from './Pages/Favorites'
+import Saved from './Pages/Saved'
 import FourOFour from './Pages/FourOFour'
 import Video from './Pages/Video'
 
@@ -17,6 +18,7 @@ export default () => (
     <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/favorites" component={Favorites} />
+        <Route exact path="/saved" component={Saved} />
         <Route exact path="/categories" component={Tags} />
         <Route exact path="/category/:category" component={Tag} />
         <Route exact path="/speakers" component={Speakers} />

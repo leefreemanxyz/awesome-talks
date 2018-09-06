@@ -8,6 +8,7 @@ import Card from 'card-vibes'
 import Favorite from '../Favorite'
 import Play from '../Styling/Play'
 import Watched from '../Watched'
+import Saved from '../Saved'
 
 const Video = styled.div``
 
@@ -115,6 +116,7 @@ const Player = ({
             )}
             <Favorite big={videoPage} id={id} />
             <Watched big={videoPage} id={id} />
+            <Saved big={videoPage} id={id} />
         </Video>
     </VideoWrapper>
 )

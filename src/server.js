@@ -72,7 +72,10 @@ server
             'watched__awesome-talks' in req.cookies
                 ? JSON.parse(req.cookies['watched__awesome-talks'])
                 : []
-
+        initialApolloState.ROOT_QUERY.saved.json =
+            'saved__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['saved__awesome-talks'])
+                : []
         // When the app is rendered collect the styles that are used inside it
         const markup = renderToString(sheet.collectStyles(<Root />))
 
@@ -105,15 +108,15 @@ server
         gtag('config', 'UA-37411302-9');
         </script>
         ${
-    assets.client.css
-        ? `<link rel="stylesheet" href="${assets.client.css}">`
-        : ''
-}
+            assets.client.css
+                ? `<link rel="stylesheet" href="${assets.client.css}">`
+                : ''
+            }
         ${
-    process.env.NODE_ENV === 'production'
-        ? `<script src="${assets.client.js}" defer></script>`
-        : `<script src="${assets.client.js}" defer crossorigin></script>`
-}
+            process.env.NODE_ENV === 'production'
+                ? `<script src="${assets.client.js}" defer></script>`
+                : `<script src="${assets.client.js}" defer crossorigin></script>`
+            }
         <!-- Render the style tags gathered from the components into the DOM -->
         ${styleTags}
         <style>
@@ -124,8 +127,8 @@ server
         <div id="root">${markup}</div>
            <script>
           window.__APOLLO_STATE__ = ${JSON.stringify(
-        initialApolloState
-    ).replace(/</g, '\\u003c')}
+                initialApolloState
+            ).replace(/</g, '\\u003c')}
         </script>
     </body>
 </html>`

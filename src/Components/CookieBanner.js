@@ -60,9 +60,9 @@ class CookieBanner extends Component {
         ) : (
             <Banner className="cookies">
                 <BannerText>
-                    We use cookies for favorites, watched and also check if you
-                    in dark / light mode. By continuing to visit this site you
-                    agree to our use of cookies.
+                    We use cookies for favorites, watched, saved and also check
+                    if you in dark / light mode. By continuing to visit this
+                    site you agree to our use of cookies.
                 </BannerText>
                 <BannerClose onClick={this.handleClose}>Got it!</BannerClose>
             </Banner>
