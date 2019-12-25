@@ -14,14 +14,32 @@ import './Utils/icons'
 
 export default () => (
     <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/favorites" component={Favorites} />
-        <Route exact path="/categories" component={Tags} />
-        <Route exact path="/category/:category" component={Tag} />
-        <Route exact path="/speakers" component={Speakers} />
-        <Route exact path="/proposed" component={Proposed} />
-        <Route exact path="/speaker/:speaker" component={Speaker} />
-        <Route exact path="/video/:id" component={Video} />
-        <Route component={FourOFour} />
+        <Route exact path="/">
+            <Home />
+        </Route>
+        <Route exact path="/favorites">
+            <Favorites />
+        </Route>
+        <Route exact path="/categories">
+            <Tags />
+        </Route>
+        <Route exact path="/category/:category">
+            <Tag />
+        </Route>
+        <Route exact path="/speakers">
+            <Speakers />
+        </Route>
+        <Route exact path="/proposed">
+            <Proposed />
+        </Route>
+        <Route exact path="/speaker/:speaker">
+            <Speaker />
+        </Route>
+        <Route exact path="/video/:id">
+            <Video />
+        </Route>
+        <Route>
+            <FourOFour />
+        </Route>
     </Switch>
 )

@@ -5,6 +5,7 @@ export default gql`
         switchMode(id: $id) @client
     }
 `
+
 export const GET_MODE = gql`
     query GetMode {
         mode @client

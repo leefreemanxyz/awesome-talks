@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { BANNER_KEY, getStorage, setStorage } from './../Utils/state'
 
@@ -36,38 +36,30 @@ const BannerClose = styled.div`
     flex-shrink: 0;
 `
 
-class CookieBanner extends Component {
-    state = {
-        shown: false
-    }
+const CookieBanner = () => {
+    const [shown, setShown] = useState(false)
 
-    handleClose = event => {
-        this.setState(
-            {
-                shown: true
-            },
-            () => {
-                setStorage(BANNER_KEY, '1')
-            }
-        )
+    const handleClose = () => {
+        setShown(true)
     }
+    useEffect(() => {
+        shown && setStorage(BANNER_KEY, '1')
+    }, [shown])
 
-    render() {
-        return getStorage(BANNER_KEY) ||
-            this.state.shown === true ||
-            typeof window === 'undefined' ? (
-            ''
-        ) : (
-            <Banner className="cookies">
-                <BannerText>
-                    We use cookies for favorites, watched and also check if you
-                    in dark / light mode. By continuing to visit this site you
-                    agree to our use of cookies.
-                </BannerText>
-                <BannerClose onClick={this.handleClose}>Got it!</BannerClose>
-            </Banner>
-        )
-    }
+    return getStorage(BANNER_KEY) ||
+        shown === true ||
+        typeof window === 'undefined' ? (
+        ''
+    ) : (
+        <Banner className="cookies">
+            <BannerText>
+                We use cookies for favorites, watched and also check if you in
+                dark / light mode. By continuing to visit this site you agree to
+                our use of cookies.
+            </BannerText>
+            <BannerClose onClick={handleClose}>Got it!</BannerClose>
+        </Banner>
+    )
 }
 
 export default CookieBanner

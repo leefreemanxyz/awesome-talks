@@ -16,9 +16,7 @@ const getDurationInSecond = input => {
 }
 module.exports = async id => {
     const getVideo = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${
-            process.env.KEY
-        }&part=contentDetails,snippet,statistics`
+        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.KEY}&part=contentDetails,snippet,statistics`
     )
     const rsp = await getVideo.json()
     const item = rsp.items[0]

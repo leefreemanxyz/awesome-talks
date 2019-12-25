@@ -1,19 +1,21 @@
 import React from 'react'
-import Header from './../Components/Header'
+import { useParams } from 'react-router-dom'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
 
+import Header from './../Components/Header'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
-import TwitterIcon from '../assets/twitter.svg'
-import humanize, { urlify } from '../Utils/strings'
 import Nav from './../Components/Nav'
 import CookieBanner from './../Components/CookieBanner'
 import Error404 from './../Components/Errors/Error404'
 import SpeakerMeta from './../Components/MetaTags/Speaker'
+import humanize, { urlify } from '../Utils/strings'
+
+import TwitterIcon from '../assets/twitter.svg'
 
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(30)};
@@ -114,47 +116,53 @@ export const SpeakerInfo = ({ photo, name, bio, twitter, videoPage }) => (
     </Wrapper>
 )
 
-export default ({
-    match: {
-        params: { speaker }
-    }
-}) => (
-    <Grid>
-        <div role="banner">
-            <Nav />
-        </div>
-        <main>
-            <Row>
-                <Col xs={12}>
-                    <Query
-                        query={SPEAKER_VIDEOS}
-                        variables={{ name: humanize(speaker) }}
-                    >
-                        {({ data: { allSpeakerses } }) => {
-                            if (!allSpeakerses.length) {
-                                return <Error404 />
-                            }
+export default () => {
+    const { speaker } = useParams()
 
-                            return (
-                                <Section>
-                                    <SpeakerInfo {...allSpeakerses[0]} />
-                                    <Row>
-                                        <Header title="Talks" noSearch />
-                                    </Row>
-                                    <Row>
-                                        {allSpeakerses.length &&
-                                            allSpeakerses[0].videoses.length &&
-                                            allSpeakerses[0].videoses.map(v => (
-                                                <Video key={v.id} talk={v} />
-                                            ))}
-                                    </Row>
-                                </Section>
-                            )
-                        }}
-                    </Query>
-                </Col>
-            </Row>
-        </main>
-        <CookieBanner />
-    </Grid>
-)
+    return (
+        <Grid>
+            <div role="banner">
+                <Nav />
+            </div>
+            <main>
+                <Row>
+                    <Col xs={12}>
+                        <Query
+                            query={SPEAKER_VIDEOS}
+                            variables={{ name: humanize(speaker) }}
+                        >
+                            {({ data: { allSpeakerses } }) => {
+                                if (!allSpeakerses.length) {
+                                    return <Error404 />
+                                }
+
+                                return (
+                                    <Section>
+                                        <SpeakerInfo {...allSpeakerses[0]} />
+                                        <Row>
+                                            <Header title="Talks" noSearch />
+                                        </Row>
+                                        <Row>
+                                            {allSpeakerses.length &&
+                                                allSpeakerses[0].videoses
+                                                    .length &&
+                                                allSpeakerses[0].videoses.map(
+                                                    v => (
+                                                        <Video
+                                                            key={v.id}
+                                                            talk={v}
+                                                        />
+                                                    )
+                                                )}
+                                        </Row>
+                                    </Section>
+                                )
+                            }}
+                        </Query>
+                    </Col>
+                </Row>
+            </main>
+            <CookieBanner />
+        </Grid>
+    )
+}

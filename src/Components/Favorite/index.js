@@ -1,5 +1,6 @@
 import React from 'react'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import compose from 'lodash/flowRight'
 import GET_FAVORITES from '../../Queries/Local/GET_FAVORITES'
 import ADD_FAVORITE from '../../Queries/Local/ADD_FAVORITE'
 import REMOVE_FAVORITE from '../../Queries/Local/REMOVE_FAVORITE'

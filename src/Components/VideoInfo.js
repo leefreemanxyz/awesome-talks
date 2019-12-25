@@ -64,9 +64,7 @@ const VideoInfo = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`https://twitter.com/intent/tweet/?text=${URLify(
-                        `Amazing Tech Talk - ${name} by @${
-                            speaker[0].twitter
-                        } via @talksawesome`
+                        `Amazing Tech Talk - ${name} by @${speaker[0].twitter} via @talksawesome`
                     )}.&amp;url=${URLify(window.location.href)}`}
                 >
                     Share on Twitter

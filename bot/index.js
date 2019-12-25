@@ -30,9 +30,7 @@ module.exports = async (req, res) => {
         Twitter.post(
             'statuses/update',
             {
-                status: `New Talk Release 🎉: ${newVideo.name} by the awesome ${
-                    speaker.name
-                }(@${twitter}) - https://youtube.com/watch?v=${newVideo.link}
+                status: `New Talk Release 🎉: ${newVideo.name} by the awesome ${speaker.name}(@${twitter}) - https://youtube.com/watch?v=${newVideo.link}
 ${Tags}
             `
             },

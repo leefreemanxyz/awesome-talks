@@ -1,5 +1,6 @@
 import React from 'react'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import compose from 'lodash/flowRight'
 import remcalc from 'remcalc'
 import uuidV4 from 'uuid/v4'
 

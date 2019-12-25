@@ -6,7 +6,6 @@ import Flex from 'styled-flex-component'
 import remcalc from 'remcalc'
 import is from 'styled-is'
 import Search from '../Search'
-import { withRouter } from 'react-router'
 import HideViewed from '../HideViewed'
 
 export const Title = styled.h1`
@@ -82,10 +81,9 @@ const Header = ({
     title = 'Talks',
     noSearch,
     small,
-    match,
     keyName,
     query,
-    HideViewed,
+    hideViewedToggle,
     code,
     noMargin,
     medium
@@ -98,11 +96,9 @@ const Header = ({
                 </Title>
                 {noSearch ? null : <Search keyName={keyName} query={query} />}
             </SearchWrapper>
-            {match.path === '/' ? <HideViewed /> : null}
+            {hideViewedToggle ? <HideViewed /> : null}
         </Col>
     </Wrapper>
 )
 
-export default withRouter(props => (
-    <Header HideViewed={HideViewed} {...props} />
-))
+export default Header

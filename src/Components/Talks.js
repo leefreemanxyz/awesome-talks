@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 import Flex from 'styled-flex-component'
@@ -39,134 +39,105 @@ const getMore = (fetchMore, allVideoses) =>
         }
     })
 
-class VideoComponent extends Component {
-    state = {
-        duration: undefined,
-        year: undefined,
-        order: 'createdAt_DESC',
-        filtersOpened: false
-    }
-    setDurationFilter = duration => {
-        this.setState({
-            duration
-        })
-    }
-    setPublishYear = year => {
-        this.setState({
-            year
-        })
-    }
+const VideoComponent = ({ search }) => {
+    const [duration, setDuration] = useState(undefined)
+    const [year, setYear] = useState(undefined)
+    const [order, setOrder] = useState('createdAt_DESC')
+    const [filtersOpened, setFiltersOpened] = useState(false)
 
-    changeOrder = e => {
-        this.setState({
-            order: e.target.value
-        })
-    }
+    const setDurationFilter = duration => setDuration(duration)
+    const setPublishYear = year => setYear(year)
+    const changeOrder = e => setOrder(e.target.value)
+    const toggleFilters = () => setFiltersOpened(o => !o)
 
-    toggleFilters = () => {
-        this.setState({
-            filtersOpened: !this.state.filtersOpened
-        })
-    }
-
-    render() {
-        const { search } = this.props
-        const { duration, year, order, filtersOpened } = this.state
-        return (
-            <Fragment>
-                <Title>
-                    <Flex
-                        role="button"
-                        tabindex="0"
-                        onClick={this.toggleFilters}
-                        onKeyPress={event => {
-                            if (event.key === 'Enter') {
-                                this.toggleFilters()
-                            }
-                        }}
-                    >
-                        {filtersOpened ? (
-                            <Icon icon="chevron-up" />
-                        ) : (
-                            <Icon icon="chevron-down" />
-                        )}
-                        Filters
-                    </Flex>
-                </Title>
-                {filtersOpened ? (
-                    <Flex
-                        wrap
-                        alignCenter
-                        justifyBetween
-                        style={{
-                            marginBottom: 40
-                        }}
-                    >
-                        <DurationFilter
-                            duration={duration}
-                            onClick={this.setDurationFilter}
-                        />
-                        <PublishedYearFilter
-                            year={year}
-                            onClick={this.setPublishYear}
-                        />
-                        <Order onChange={this.changeOrder} />
-                    </Flex>
-                ) : null}
-                <Query
-                    query={ALL_VIDEOS}
-                    variables={{
-                        first: 9,
-                        search,
-                        duration,
-                        year,
-                        order
+    return (
+        <Fragment>
+            <Title>
+                <Flex
+                    role="button"
+                    tabindex="0"
+                    onClick={toggleFilters}
+                    onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                            toggleFilters()
+                        }
                     }}
                 >
-                    {({ data: { allVideoses }, fetchMore }) => {
-                        return (
-                            <Row
-                                css={`
-                                    justify-content: center;
-                                `}
-                            >
-                                <Col xs={12}>
-                                    <Row>
-                                        <Talks
-                                            search={search}
-                                            talks={allVideoses}
-                                        />
-                                    </Row>
-
-                                    <Query
-                                        query={COUNT}
-                                        variables={{
-                                            search
-                                        }}
-                                    >
-                                        {({ data: { _allVideosesMeta } }) => (
-                                            <Scroll
-                                                show={
-                                                    _allVideosesMeta.count >
-                                                    allVideoses.length
-                                                }
-                                                onBottom={() =>
-                                                    getMore(
-                                                        fetchMore,
-                                                        allVideoses
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </Query>
-                                </Col>
-                            </Row>
-                        )
+                    {filtersOpened ? (
+                        <Icon icon="chevron-up" />
+                    ) : (
+                        <Icon icon="chevron-down" />
+                    )}
+                    Filters
+                </Flex>
+            </Title>
+            {filtersOpened ? (
+                <Flex
+                    wrap
+                    alignCenter
+                    justifyBetween
+                    style={{
+                        marginBottom: 40
                     }}
-                </Query>
-            </Fragment>
-        )
-    }
+                >
+                    <DurationFilter
+                        duration={duration}
+                        onClick={setDurationFilter}
+                    />
+                    <PublishedYearFilter year={year} onClick={setPublishYear} />
+                    <Order onChange={changeOrder} />
+                </Flex>
+            ) : null}
+            <Query
+                query={ALL_VIDEOS}
+                variables={{
+                    first: 9,
+                    search,
+                    duration,
+                    year,
+                    order
+                }}
+            >
+                {({ data: { allVideoses }, fetchMore }) => {
+                    return (
+                        <Row
+                            css={`
+                                justify-content: center;
+                            `}
+                        >
+                            <Col xs={12}>
+                                <Row>
+                                    <Talks
+                                        search={search}
+                                        talks={allVideoses}
+                                    />
+                                </Row>
+
+                                <Query
+                                    query={COUNT}
+                                    variables={{
+                                        search
+                                    }}
+                                >
+                                    {({ data: { _allVideosesMeta } }) => (
+                                        <Scroll
+                                            show={
+                                                _allVideosesMeta.count >
+                                                allVideoses.length
+                                            }
+                                            onBottom={() =>
+                                                getMore(fetchMore, allVideoses)
+                                            }
+                                        />
+                                    )}
+                                </Query>
+                            </Col>
+                        </Row>
+                    )
+                }}
+            </Query>
+        </Fragment>
+    )
 }
 
 export default VideoComponent

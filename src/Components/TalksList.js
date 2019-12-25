@@ -1,5 +1,6 @@
 import Flex from 'styled-flex-component'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import compose from 'lodash/flowRight'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import Video from './Video'
 import { Title } from './../Components/Header'

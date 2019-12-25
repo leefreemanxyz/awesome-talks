@@ -123,23 +123,21 @@ class Search extends Component {
                         }`}
                     >
                         <SearchIcon icon="search" size="lg" />
-                        {data[keyName] &&
-                            data[keyName].length && (
-                                <CloseIcon
-                                    icon="times"
-                                    size="lg"
-                                    onClick={() => {
-                                        this.input.value = ''
-                                        client.writeData({
-                                            data: { [keyName]: '' }
-                                        })
-                                    }}
-                                />
-                            )}
-                        {!data[keyName] &&
-                            this.state.focused === false && (
-                                <SlashIcon aria-hidden="true">/</SlashIcon>
-                            )}
+                        {data[keyName] && data[keyName].length && (
+                            <CloseIcon
+                                icon="times"
+                                size="lg"
+                                onClick={() => {
+                                    this.input.value = ''
+                                    client.writeData({
+                                        data: { [keyName]: '' }
+                                    })
+                                }}
+                            />
+                        )}
+                        {!data[keyName] && this.state.focused === false && (
+                            <SlashIcon aria-hidden="true">/</SlashIcon>
+                        )}
                         <Input
                             aria-label="Search"
                             ref={node => (this.input = node)}

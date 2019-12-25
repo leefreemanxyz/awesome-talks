@@ -45,46 +45,38 @@ const Speakers = ({ data: { searchSpeakers } }) => (
                                         {Filter(
                                             searchSpeakers,
                                             allSpeakerses
-                                        ).map(
-                                            s =>
-                                                s._videosesMeta.count > 0 ? (
-                                                    <Figure key={s.id}>
-                                                        <Img
-                                                            src={
-                                                                (s.photo || {})
-                                                                    .url
-                                                            }
-                                                            alt={s.name}
-                                                        />
-                                                        <Caption>
-                                                            <Name>
-                                                                {
-                                                                    makeName(
-                                                                        s.name
-                                                                    )[0]
-                                                                }{' '}
-                                                                <span>
-                                                                    {makeName(
-                                                                        s.name
-                                                                    )
-                                                                        .slice(
-                                                                            -1
-                                                                        )
-                                                                        .join(
-                                                                            ' '
-                                                                        )}
-                                                                </span>
-                                                            </Name>
-                                                        </Caption>
-                                                        <a
-                                                            aria-label="go to spaker"
-                                                            className="no-hover"
-                                                            href={makeLink(
-                                                                s.name
-                                                            )}
-                                                        />
-                                                    </Figure>
-                                                ) : null
+                                        ).map(s =>
+                                            s._videosesMeta.count > 0 ? (
+                                                <Figure key={s.id}>
+                                                    <Img
+                                                        src={
+                                                            (s.photo || {}).url
+                                                        }
+                                                        alt={s.name}
+                                                    />
+                                                    <Caption>
+                                                        <Name>
+                                                            {
+                                                                makeName(
+                                                                    s.name
+                                                                )[0]
+                                                            }{' '}
+                                                            <span>
+                                                                {makeName(
+                                                                    s.name
+                                                                )
+                                                                    .slice(-1)
+                                                                    .join(' ')}
+                                                            </span>
+                                                        </Name>
+                                                    </Caption>
+                                                    <a
+                                                        aria-label="go to spaker"
+                                                        className="no-hover"
+                                                        href={makeLink(s.name)}
+                                                    />
+                                                </Figure>
+                                            ) : null
                                         )}
                                     </Wrapper>
                                 </Row>

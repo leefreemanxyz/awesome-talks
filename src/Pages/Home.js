@@ -13,7 +13,7 @@ export default () => (
         <HomeTags />
         <div role="banner">
             <Nav />
-            <Header query={GET_SEARCH} keyName="search" />
+            <Header query={GET_SEARCH} keyName="search" hideViewedToggle />
         </div>
         <main>
             <Query query={GET_SEARCH}>
